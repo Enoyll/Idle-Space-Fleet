@@ -48,18 +48,6 @@
             font-weight: 600;
         }
 
-        /* Editable cells hover effect */
-        td[contenteditable="true"]:hover {
-            background-color: #3f3f46;
-            cursor: text;
-            outline: 1px solid #71717a;
-        }
-        
-        td[contenteditable="true"]:focus {
-            background-color: #3f3f46;
-            outline: 2px solid #3b82f6;
-        }
-
         .strike { text-decoration: line-through; }
     </style>
 </head>
@@ -111,11 +99,6 @@
             </table>
         </div>
     </div>
-
-    <p class="text-gray-500 text-sm mt-4 text-center max-w-2xl">
-        <strong>Tip:</strong> You can click on any cell (like the '?' marks) to directly edit the values before exporting the image. 
-        Changes are saved temporarily in your browser while the page is open.
-    </p>
 
     <script>
         // Data structure based on the provided screenshots
@@ -219,7 +202,6 @@
                 const tdName = document.createElement('td');
                 tdName.className = row.color;
                 tdName.innerText = row.name;
-                tdName.contentEditable = "true"; // Make it editable
                 tr.appendChild(tdName);
 
                 // Value Columns
@@ -227,7 +209,6 @@
                     const tdVal = document.createElement('td');
                     tdVal.className = columnColors[index];
                     tdVal.innerText = val;
-                    tdVal.contentEditable = "true"; // Make editable!
                     tr.appendChild(tdVal);
                 });
 
