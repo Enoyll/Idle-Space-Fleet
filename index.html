@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Idle Space Fleet - Equipment Tracker</title>
+    <title>Idle Space Fleet - Equipment Tracker & Info</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -56,9 +56,9 @@
     <div class="w-full max-w-5xl mb-6 flex justify-between items-end">
         <div>
             <h1 class="text-3xl font-bold text-white mb-2">Idle Space Fleet</h1>
-            <p class="text-gray-400">Equipment Reference & Image Generator</p>
+            <p class="text-gray-400">Equipment Reference, General Info & Image Generator</p>
         </div>
-        <button onclick="downloadTableImage()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded shadow transition flex items-center gap-2">
+        <button id="exportBtn" onclick="downloadTableImage()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded shadow transition flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
@@ -67,23 +67,74 @@
     </div>
 
     <!-- Tabs -->
-    <div class="w-full max-w-5xl flex gap-2 mb-4 border-b border-gray-700 pb-2">
-        <button onclick="switchTab('Defense')" id="tab-Defense" class="tab-btn px-4 py-2 rounded bg-gray-700 text-white font-bold">Defense Equipment</button>
-        <button onclick="switchTab('Support')" id="tab-Support" class="tab-btn px-4 py-2 rounded text-gray-400 hover:text-white">Support Equipment</button>
-        <button onclick="switchTab('Weapon')" id="tab-Weapon" class="tab-btn px-4 py-2 rounded text-gray-400 hover:text-white">Weapon Equipment</button>
-        <button onclick="switchTab('Fleet')" id="tab-Fleet" class="tab-btn px-4 py-2 rounded text-gray-400 hover:text-white">Fleet Equipment</button>
+    <div class="w-full max-w-5xl flex flex-wrap gap-2 mb-4 border-b border-gray-700 pb-2">
+        <button onclick="switchTab('Info')" id="tab-Info" class="tab-btn px-4 py-2 rounded bg-gray-700 text-white font-bold">General Info</button>
+        <button onclick="switchTab('Defense')" id="tab-Defense" class="tab-btn px-4 py-2 rounded text-gray-400 hover:text-white">Defense</button>
+        <button onclick="switchTab('Support')" id="tab-Support" class="tab-btn px-4 py-2 rounded text-gray-400 hover:text-white">Support</button>
+        <button onclick="switchTab('Weapon')" id="tab-Weapon" class="tab-btn px-4 py-2 rounded text-gray-400 hover:text-white">Weapon</button>
+        <button onclick="switchTab('Fleet')" id="tab-Fleet" class="tab-btn px-4 py-2 rounded text-gray-400 hover:text-white">Fleet</button>
+    </div>
+
+    <!-- Guide Area -->
+    <div id="guideArea" class="w-full max-w-5xl table-container rounded p-6 md:p-8 space-y-10">
+        
+        <!-- 1. Basics -->
+        <section>
+            <h3 class="text-2xl font-bold text-blue-400 mb-4 border-b border-gray-600 pb-2">1. Basics</h3>
+            <p class="text-gray-300 mb-2">All equipment has a specific rarity (color) associated with it.</p>
+            <ul class="list-disc list-inside space-y-2 text-gray-300 mb-4">
+                <li>Equipment can come from Shop crates as Common (white), Uncommon (green), Rare (blue), or Epic (purple).</li>
+                <li>Equipment can be upgraded to Legendary (orange), Mythic (red), and ??? (???).</li>
+                <li>The highest rarities of equipment contain multiple sub-levels called "plus levels" (denoted by the '+' icon).</li>
+            </ul>
+            <img src="images/basic.webp" alt="Rarity Basics" class="rounded-lg shadow-lg border border-gray-600 max-w-full">
+        </section>
+
+        <!-- 2. Merging -->
+        <section>
+            <h3 class="text-2xl font-bold text-blue-400 mb-4 border-b border-gray-600 pb-2">2. Merging</h3>
+            <p class="text-gray-300">Merging allows the player to combine multiple equipment of a certain rarity, turning it into a single equipment of a higher rarity (or level).</p>
+            <!-- Placeholder for future image -->
+            <div class="mt-4 border-2 border-dashed border-gray-600 rounded-lg p-12 flex items-center justify-center text-gray-500">
+                <span>[ Merging Image Coming Soon ]</span>
+            </div>
+        </section>
+
+        <!-- 3. S-Tier Equipment -->
+        <section>
+            <h3 class="text-2xl font-bold text-blue-400 mb-4 border-b border-gray-600 pb-2">3. S-Tier Equipment</h3>
+            <img src="images/stier.webp" alt="S-Tier Equipment" class="rounded-lg shadow-lg border border-gray-600 max-w-full">
+        </section>
+
+        <!-- 4. Equipment Shop -->
+        <section>
+            <h3 class="text-2xl font-bold text-blue-400 mb-4 border-b border-gray-600 pb-2">4. Equipment Shop</h3>
+            <div class="bg-gray-800 rounded-lg p-4 mb-4 border border-gray-700">
+                <ul class="space-y-3 text-gray-300">
+                    <li><span class="font-bold text-blue-300">Rare Crate:</span> 1 free pull every 24h; 50 gems per pull</li>
+                    <li><span class="font-bold text-purple-400">Epic Crate:</span> 1 free pull every 7d; 100 gems per pull</li>
+                    <li><span class="font-bold text-yellow-400">Chromatic Crate:</span> 1 free pull per account; 120 gems per pull (1200 gems for x10 pull)</li>
+                </ul>
+            </div>
+            <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm mb-4">
+                <li>Rare crates can be opened with rare crate keys, which are in game currency dropped during battle.</li>
+                <li>There is no bulk discount for pulling x10 on the Chromatic crate (unlike Chips, where pulling x10 saves 50 gems).</li>
+                <li>The Chromatic crate has pity mechanics for both Epic and S-Epic, which are displayed in game on the crate banner.</li>
+            </ul>
+            <img src="images/shop.webp" alt="Equipment Shop" class="rounded-lg shadow-lg border border-gray-600 max-w-full">
+        </section>
+        
     </div>
 
     <!-- Table Export Area -->
-    <div id="exportArea" class="w-full max-w-5xl table-container rounded p-4">
+    <div id="exportArea" class="hidden w-full max-w-5xl table-container rounded p-4">
         <h2 id="tableTitle" class="text-2xl font-bold text-center text-white mb-4">Defense Equipment</h2>
         
         <div class="overflow-x-auto">
             <table id="dataTable">
                 <thead>
                     <tr>
-                        <th></th> <!-- Empty top-left -->
-                        <!-- The colors of the columns based on the image -->
+                        <th></th>
                         <th class="color-white">Tier 1</th>
                         <th class="color-green">Tier 2</th>
                         <th class="color-blue">Tier 3</th>
@@ -101,7 +152,6 @@
     </div>
 
     <script>
-        // Data structure based on the provided screenshots
         const equipmentData = {
             "Defense": [
                 { name: "Barrier Shield regen", color: "color-white", vals: ["+20%", "+30%", "+40%", "+60%", "?", "?", "?"] },
@@ -187,7 +237,7 @@
             "color-yellow", "color-red", "color-orange"
         ];
 
-        let currentTab = "Defense";
+        let currentTab = "Info"; // Default tab is now Info
 
         function renderTable(tabName) {
             const tbody = document.getElementById('tableBody');
@@ -198,13 +248,11 @@
             data.forEach(row => {
                 const tr = document.createElement('tr');
                 
-                // Name Column
                 const tdName = document.createElement('td');
                 tdName.className = row.color;
                 tdName.innerText = row.name;
                 tr.appendChild(tdName);
 
-                // Value Columns
                 row.vals.forEach((val, index) => {
                     const tdVal = document.createElement('td');
                     tdVal.className = columnColors[index];
@@ -219,9 +267,6 @@
         function switchTab(tabName) {
             currentTab = tabName;
             
-            // Update Title
-            document.getElementById('tableTitle').innerText = tabName + " Equipment";
-            
             // Reset Tab Styles
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.className = "tab-btn px-4 py-2 rounded text-gray-400 hover:text-white";
@@ -229,27 +274,29 @@
             
             // Set Active Tab Style
             const activeBtn = document.getElementById('tab-' + tabName);
-            activeBtn.className = "tab-btn px-4 py-2 rounded bg-gray-700 text-white font-bold";
+            if(activeBtn) {
+                activeBtn.className = "tab-btn px-4 py-2 rounded bg-gray-700 text-white font-bold";
+            }
 
-            renderTable(tabName);
-        }
-
-        function downloadTableImage() {
             const exportArea = document.getElementById('exportArea');
-            
-            html2canvas(exportArea, {
-                backgroundColor: '#262626',
-                scale: 2 
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `IdleSpaceFleet_${currentTab}_Equipment.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            });
+            const guideArea = document.getElementById('guideArea');
+            const exportBtn = document.getElementById('exportBtn');
+
+            if(tabName === 'Info') {
+                exportArea.classList.add('hidden');
+                guideArea.classList.remove('hidden');
+                exportBtn.classList.add('hidden'); // Hide Export Image button on guide
+            } else {
+                exportArea.classList.remove('hidden');
+                guideArea.classList.add('hidden');
+                exportBtn.classList.remove('hidden');
+                document.getElementById('tableTitle').innerText = tabName + " Equipment";
+                renderTable(tabName);
+            }
         }
 
-        // Initialize first tab
-        switchTab('Defense');
+        // Initialize
+        switchTab('Info');
     </script>
 </body>
 </html>
