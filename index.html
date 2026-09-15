@@ -49,6 +49,11 @@
         }
 
         .strike { text-decoration: line-through; }
+
+        /* Grouping Styles */
+        .group-bg-1 { background-color: #262626; }
+        .group-bg-2 { background-color: #1e1e1e; }
+        .row-hover:hover { background-color: #3a3a3a; transition: background-color 0.15s ease-in-out; }
     </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 flex flex-col items-center">
@@ -151,10 +156,15 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    <div class="w-full max-w-5xl mt-8 mb-4 text-center text-gray-500 text-sm">
+        Last updated: September 14, 2026
+    </div>
+
     <script>
         const equipmentData = {
             "Defense": [
-                { name: "Barrier Shield regen", color: "color-white", vals: ["+20%", "+30%", "+40%", "+60%", "+%100", "?", "?"] },
+                { name: "Barrier Shield regen", color: "color-white", vals: ["+20%", "+30%", "+40%", "+60%", "+100%", "?", "?"] },
                 { name: "Percent defense", color: "color-white", vals: ["+1.0%", "+1.5%", "+2.0%", "+3.0%", "+5.0%", "?", "?"] },
                 { name: "Absolute defense", color: "color-white", vals: ["+15%", "+20%", "+25%", "+40%", "+100%", "?", "?"] },
                 { name: "Nova Mines recovery percent ?", color: "color-pink", vals: ["", "", "", "?", "?", "?", "?"] },
@@ -245,8 +255,20 @@
             
             const data = equipmentData[tabName];
             
+            let currentGroupPrefix = "";
+            let isDarkBg = false;
+
             data.forEach(row => {
+                // Determine group by first word
+                const firstWord = row.name.split(' ')[0];
+                
+                if (firstWord !== currentGroupPrefix) {
+                    currentGroupPrefix = firstWord;
+                    isDarkBg = !isDarkBg;
+                }
+
                 const tr = document.createElement('tr');
+                tr.className = (isDarkBg ? 'group-bg-1' : 'group-bg-2') + ' row-hover';
                 
                 const tdName = document.createElement('td');
                 tdName.className = row.color;
